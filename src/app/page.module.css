@@ -1,0 +1,45 @@
+.home {
+  display: grid;
+  grid-template-columns: 25% 60%;
+  justify-content: center;
+  gap: 3%;
+  margin-top: 2.5rem;
+}
+
+/* media queries */
+
+
+@media (max-width: 1100px) {
+  .home {
+    grid-template-columns: 35% 62%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 923px) {
+  .home {
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 747px) {
+  .home {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 640px) {
+}
+
+@media (max-width: 480px) {
+}
+
+@media (max-width: 360px) {
+}
