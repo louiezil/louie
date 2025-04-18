@@ -3,7 +3,7 @@ import GitHub from "next-auth/providers/github";
 import { Users } from "./models";
 import { connectToDb } from "@/Actions/connection";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     GitHub({
@@ -27,7 +27,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           throw new Error("Incorrect password");
         }
 
-        return user
+        return user;
       },
     }),
   ],
@@ -74,6 +74,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
       //   console.log(session);
       return session;
+    },
+    cookies: {
+      domain:
+        process.env.NODE_ENV === "production" ? ".vercel.app" : "localhost",
     },
 
     // ...authConfig.callbacks
