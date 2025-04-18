@@ -7,7 +7,8 @@ import { Pacifico } from "next/font/google";
 const Font = Pacifico({
   weight: "400",
   style: "normal",
-  subsets: [`cyrillic`, `cyrillic-ext`, `latin`, `latin-ext`, `vietnamese`],
+  subsets: ['cyrillic', 'cyrillic-ext', 'latin', 'latin-ext', 'vietnamese'],
+
 });
 
 export default async function Dashboard() {

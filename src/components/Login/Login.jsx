@@ -8,7 +8,7 @@ import Form from "./Form";
 const Font = Pacifico({
   weight: "400",
   style: "normal",
-  subsets: [`cyrillic`, `cyrillic-ext`, `latin`, `latin-ext`, `vietnamese`],
+  subsets: ["cyrillic", "cyrillic-ext", "latin", "latin-ext", "vietnamese"],
 });
 
 const Login = () => {

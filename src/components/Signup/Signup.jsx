@@ -5,7 +5,7 @@ import styles from "./page.module.css";
 const Font = Pacifico({
   weight: "400",
   style: "normal",
-  subsets: [`cyrillic`, `cyrillic-ext`, `latin`, `latin-ext`, `vietnamese`],
+  subsets: ['cyrillic', 'cyrillic-ext', 'latin', 'latin-ext', 'vietnamese'],
 });
 
 const Signup = async () => {
