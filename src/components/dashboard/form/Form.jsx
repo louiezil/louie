@@ -8,6 +8,7 @@ import { Pacifico } from "next/font/google";
 const Font = Pacifico({
   weight: "400",
   style: "normal",
+  subsets: ['latin']
 });
 
 const Form = ({ user }) => {

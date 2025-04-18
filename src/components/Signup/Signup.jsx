@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 const Font = Pacifico({
     weight: "400",
     style: "normal",
+    subsets: ['latin']
   });
 
 const Signup =async () => {
