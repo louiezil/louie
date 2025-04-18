@@ -7,12 +7,12 @@ import { Pacifico } from "next/font/google";
 const Font = Pacifico({
   weight: "400",
   style: "normal",
-  subsets: ['latin']
+  subsets: [`cyrillic`, `cyrillic-ext`, `latin`, `latin-ext`, `vietnamese`],
 });
 
 export default async function Dashboard() {
-  const userInfo = await auth()
-  const user = userInfo?.user.name
+  const userInfo = await auth();
+  const user = userInfo?.user.name;
   // console.log(userInfo)
 
   return (
@@ -21,7 +21,11 @@ export default async function Dashboard() {
         <header className={styles.header}>
           <div className={styles.userInfo}>
             {userInfo?.user ? (
-              <img src={userInfo.user.image || '/desert.png'} alt="Profile" className={styles.avatar} />
+              <img
+                src={userInfo.user.image || "/desert.png"}
+                alt="Profile"
+                className={styles.avatar}
+              />
             ) : (
               <div className={styles.avatarPlaceholder}>👤</div>
             )}
@@ -33,7 +37,7 @@ export default async function Dashboard() {
         </header>
 
         <section className={styles.formSection}>
-          <Form user={user}/>
+          <Form user={user} />
           <div className={styles.right}>
             <b className={`${Font.className}`}>My Blogs</b>
             <Myblogs />

@@ -8,7 +8,7 @@ import { Pacifico } from "next/font/google";
 const Font = Pacifico({
   weight: "400",
   style: "normal",
-  subsets: ['latin']
+  subsets: [`cyrillic`, `cyrillic-ext`, `latin`, `latin-ext`, `vietnamese`],
 });
 
 const Form = ({ user }) => {
@@ -25,7 +25,9 @@ const Form = ({ user }) => {
 
   return (
     <form action={handleSubmit} className={styles.form}>
-      <div className={`${styles.title} ${Font.className}`}>Let's Create a Post</div>
+      <div className={`${styles.title} ${Font.className}`}>
+        Let's Create a Post
+      </div>
       <input
         name="title"
         placeholder="Title"
