@@ -3,9 +3,9 @@ import { getToken } from "next-auth/jwt";
 
 export async function middleware(request) {
   const token = await getToken({
-    req:request,
+    req: request,
     secret: process.env.NEXTAUTH_SECRET,
-    secureCookie: true, // MUST be true for Vercel and `__Secure-` cookies
+    secureCookie: process.env.NODE_ENV === "production",
   });
 
   console.log("🧪 TOKEN IN MW:", token); // debug output
@@ -17,7 +17,6 @@ export async function middleware(request) {
   const isONLogin = pathname.startsWith("/Login");
   const isOnsignup = pathname.startsWith("/signup");
 
-
   if (!token && !publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL("/Login", request.url));
   }
@@ -26,11 +25,11 @@ export async function middleware(request) {
     return NextResponse.redirect(new URL("/Dashboard", request.url));
   }
 
-  if(token && isONLogin){
-    return NextResponse.redirect(new URL('/Dashboard',request.url))
+  if (token && isONLogin) {
+    return NextResponse.redirect(new URL("/Dashboard", request.url));
   }
-  if(token && isOnsignup){
-    return NextResponse.redirect(new URL('/Dashboard',request.url))
+  if (token && isOnsignup) {
+    return NextResponse.redirect(new URL("/Dashboard", request.url));
   }
   // console.log(token)
 

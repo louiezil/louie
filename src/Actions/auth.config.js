@@ -8,6 +8,7 @@ export const authConfig = {
   session: {
     strategy: "jwt",
   },
+
   callbacks: {
     async jwt({ token, user }) {
       // Only on first sign-in
@@ -19,7 +20,7 @@ export const authConfig = {
         token.name = finduser.name; // ✅ Add this
         token.image = finduser.image; // ✅ Add this
       }
-      console.log("the account :", token);
+      //   console.log("the token :", token);
       return token;
     },
     async session({ session, token }) {
@@ -30,7 +31,7 @@ export const authConfig = {
         session.user.image = token.image; // Attach email
         session.user.name = token.name || session.user.name; // Attach name (optional)
       }
-      console.log("the session :", session); // ✅ Correct spelling
+      //   console.log("the session :", session); // ✅ Correct spelling
       return session;
     },
   },
