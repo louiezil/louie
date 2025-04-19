@@ -2,10 +2,11 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(request) {
-const token = await getToken({
-  req:request,
-  secret:process.env.NEXTAUTH_SECRET
-})
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+    secureCookie: true, // ✅ Required for Vercel & HTTPS
+  });
 
   console.log("🧪 TOKEN IN MW:", token); // debug output
 
