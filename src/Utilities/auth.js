@@ -12,7 +12,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
     CredentialsProvider({
       async authorize(credentials) {
-        await connectToDb;
+        await connectToDb();
 
         const user = await Users.findOne({ name: credentials.name });
         if (!user) {
@@ -33,6 +33,19 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   ],
   session: {
     strategy: "jwt", // 👈 important!
+  },
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        domain:
+          process.env.NODE_ENV === "production" ? ".vercel.app" : "localhost",
+        secure: true,
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+      },
+    },
   },
   callbacks: {
     async signIn({ user, account, profile }) {
@@ -77,10 +90,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
       //   console.log(session);
       return session;
-    },
-    cookies: {
-      domain:
-        process.env.NODE_ENV === "production" ? ".vercel.app" : "localhost",
     },
 
     // ...authConfig.callbacks
