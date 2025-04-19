@@ -31,6 +31,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  session: {
+    strategy: "jwt", // 👈 important!
+  },
   callbacks: {
     async signIn({ user, account, profile }) {
       if (account.type == "oauth") {

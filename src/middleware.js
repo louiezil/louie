@@ -6,6 +6,7 @@ export async function middleware(request) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
+  console.log("Token is :",token)
 
   const { pathname } = request.nextUrl;
   const publicPaths = ["/", "/signup", "/Login"];
