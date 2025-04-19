@@ -2,13 +2,12 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(request) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-    secureCookie: process.env.NODE_ENV === "production",
-  });
-  
-  console.log("Token is :",token)
+const token = await getToken({
+  req:request,
+  secret:process.env.NEXTAUTH_SECRET
+})
+
+  console.log("🧪 TOKEN IN MW:", token); // debug output
 
   const { pathname } = request.nextUrl;
   const publicPaths = ["/", "/signup", "/Login"];

@@ -4,7 +4,9 @@ import { Users } from "./models";
 import { connectToDb } from "@/Actions/connection";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
+import { authConfig } from "@/Actions/auth.config";
 export const { auth, handlers, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     GitHub({
       clientId: process.env.GITHUB_ID,
@@ -32,21 +34,21 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
   ],
   session: {
-    strategy: "jwt", // 👈 important!
+    strategy: "jwt",
   },
-  cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
-      options: {
-        domain:
-          process.env.NODE_ENV === "production" ? ".vercel.app" : "localhost",
-        secure: true,
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-      },
-    },
-  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: `__Secure-next-auth.session-token`,
+  //     options: {
+  //       domain:
+  //         process.env.NODE_ENV === "production" ? ".vercel.app" : "localhost",
+  //       secure: true,
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //     },
+  //   },
+  // },
   callbacks: {
     async signIn({ user, account, profile }) {
       if (account.type == "oauth") {
@@ -71,27 +73,30 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
       return true;
     },
-    async jwt({ token, account, user }) {
-      // Only on first sign-in
-      if (account && user) {
-        //connecting to Db
-        const finduser = await Users.findOne({
-          name: user.name,
-        });
-        token.id = finduser._id;
-        token.username = user.login || user.name || user.email;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      // Extend session with custom token values
-      if (token) {
-        session.user.id = token.id;
-      }
-      //   console.log(session);
-      return session;
-    },
+    // async jwt({ token, account, user }) {
+    //   // Only on first sign-in
+    //   if (account && user) {
+    //     //connecting to Db
+    //     const finduser = await Users.findOne({
+    //       name: user.name,
+    //     });
+    //     token.id = finduser._id;
+    //     token.username = user.login || user.name || user.email;
+    //   }
+    //   // console.log(token)
+    //   return token;
+    // },
+    // async session({ session, token }) {
+    //   if (token) {
+    //     // Ensure token properties are being passed to the session
+    //     session.user.id = token.id;  // Attach user ID
+    //     session.user.email = token.email;  // Attach email
+    //     session.user.name = token.name || session.user.name;  // Attach name (optional)
+    //   }
+    //   console.log(session)
+    //   return session;
+    // },
 
-    // ...authConfig.callbacks
+    ...authConfig.callbacks,
   },
 });
